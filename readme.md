@@ -7,3 +7,9 @@
       2.获取sqlsession 对象执行增删改查
   4.和数据库字段不一致，使用别名
    select id,last_name lastName,gender,email from tbl_employee where id = #{id}    
+   
+2.接口式变成
+  mybatis映射文件和接口结合使用，mybatis会自动给接口产生一个代理对象
+  
+  优点 有明确的参数检验，返回值类型校验
+   
