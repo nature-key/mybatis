@@ -7,6 +7,8 @@
      namespace 空间名称  和接口对应 接口的路径
      id 唯一表示
      resultType 返回类型
+
+     有databaseId的配置优先
     -->
     <select id="getEmployeeById" resultType="emp" databaseId="mysql">
         select * from tbl_employee where id = #{id}
