@@ -1,5 +1,8 @@
 package com.sgugu.entity;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias(value = "emp")
 public class Employee {
 
     private Integer id;

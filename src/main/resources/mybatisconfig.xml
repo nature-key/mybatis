@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--引入外部资源-->
+    <properties resource="dbconfig.properties"></properties>
+    <!--设置重要配置选项-->
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <!--类名
+    默认类名小写
+    不区分大小写
+    全局别名可能冲突 所以用@Alias(value = "emp")
+    -->
+    <typeAliases>
+        <!--<typeAlias type="com.sgugu.entity.Employee"></typeAlias>-->
+        <package name="com.sgugu.entity"></package>
+    </typeAliases>
+
+
+    <!--
+    environments
+
+        id 环境的唯一标识 ，可以指定环境 default
+       1.必须使用
+       transactionManager  type默认值MANAGED JDBC  可以自定义  TransactionFactory type 为全类名
+       dataSource type 默认POOLED UNPOOLED JNDI 可以自定义DataSourceFactory  type为全类名
+
+
+
+    -->
+    <environments default="development">
+        <!--<environment id="oracle">-->
+        <!--<transactionManager type="JDBC"/>-->
+        <!--<dataSource type="POOLED">-->
+        <!--<property name="driver" value="${jdbc.driver}"/>-->
+        <!--<property name="url" value="${jdbc.url}"/>-->
+        <!--<property name="username" value="${jdbc.username}"/>-->
+        <!--<property name="password" value="${jdbc.password}"/>-->
+        <!--</dataSource>-->
+        <!--</environment>-->
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--
+  databaseIdProvider支持不通数据库
+DB_VENDOR 获取不同厂商标识
+  只要给EmployeeManger.xml标识厂商别名
+
+  大坑顺序必须这样 不然包错
+  -->
+    <databaseIdProvider type="DB_VENDOR">
+        <!--为不同商场其别名-->
+        <property name="MySQL" value="mysql"/>
+        <!--<property name="Oracle" value="oracle"/>-->
+    </databaseIdProvider>
+    <mappers>
+        <!--映射文件注册-->
+        <mapper resource="EmployeeManger.xml"/>
+    </mappers>
+</configuration>

@@ -14,6 +14,7 @@
             </dataSource>
         </environment>
     </environments>
+
     <mappers>
         <!--映射文件注册-->
         <mapper resource="EmployeeManger.xml"/>
