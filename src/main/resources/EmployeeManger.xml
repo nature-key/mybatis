@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sgugu.entity.dao.Employee">
+<mapper namespace="com.sgugu.entity.EmployeeMapper">
     <!--
      namespace 空间名称  和接口对应 接口的路径
      id 唯一表示
@@ -13,4 +13,14 @@
     <select id="getEmployeeById" resultType="emp" databaseId="mysql">
         select * from tbl_employee where id = #{id}
     </select>
+
+    <insert id="addEmp">
+        INSERT INTO tbl_employee(id,last_name,email,gender) VALUES (#{id},#{lastName},#{email},#{gender})
+    </insert>
+   <update id="updateEmp">
+       UPDATE tbl_employee set last_name=#{lastName} where id=#{id}
+   </update>
+    <delete id="delEmp" >
+        DELETE from  tbl_employee  WHERE id=#{id}
+    </delete>
 </mapper>

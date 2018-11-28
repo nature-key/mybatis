@@ -65,8 +65,20 @@ DB_VENDOR 获取不同厂商标识
         <property name="MySQL" value="mysql"/>
         <!--<property name="Oracle" value="oracle"/>-->
     </databaseIdProvider>
+
+    <!--
+    resource sql映射文件
+    url 磁盘映射文件
+    class 类路径
+        1.没有sql文件 使用注解  不重要的
+        2.有sql文件，把文件放到接口同一个目录下 重要的
+  批量注册
+
+    -->
     <mappers>
         <!--映射文件注册-->
         <mapper resource="EmployeeManger.xml"/>
+        <mapper class="com.sgugu.entity.EmployeeAnnotion"/>
+        <package name="com.sgugu.entity"></package>
     </mappers>
 </configuration>
