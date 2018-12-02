@@ -6,9 +6,9 @@
     <!--引入外部资源-->
     <properties resource="dbconfig.properties"></properties>
     <!--设置重要配置选项-->
-    <settings>
-        <setting name="mapUnderscoreToCamelCase" value="true"/>
-    </settings>
+    <!--<settings>-->
+        <!--<setting name="mapUnderscoreToCamelCase" value="true"/>-->
+    <!--</settings>-->
 
     <!--类名
     默认类名小写
@@ -79,6 +79,6 @@ DB_VENDOR 获取不同厂商标识
         <!--映射文件注册-->
         <mapper resource="EmployeeManger.xml"/>
         <mapper class="com.sgugu.entity.EmployeeAnnotion"/>
-        <package name="com.sgugu.entity"></package>
+        <!--<package name="com.sgugu.entity"></package>-->
     </mappers>
 </configuration>

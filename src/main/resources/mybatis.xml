@@ -3,6 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+    </settings>
+    <typeAliases>
+        <package name="com.sgugu.entity"></package>
+    </typeAliases>
+
+
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
@@ -15,8 +24,16 @@
         </environment>
     </environments>
 
+
+    <databaseIdProvider type="DB_VENDOR">
+        <!--为不同商场其别名-->
+        <property name="MySQL" value="mysql"/>
+        <!--<property name="Oracle" value="oracle"/>-->
+    </databaseIdProvider>
+
     <mappers>
         <!--映射文件注册-->
-        <mapper resource="EmployeeManger.xml"/>
+        <!--<mapper resource="EmployeeManger.xml"/>-->
+        <mapper resource="EmployeeMangerMap.xml"/>
     </mappers>
 </configuration>
