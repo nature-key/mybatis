@@ -1,8 +1,19 @@
 package com.sgugu.entity;
 
+import java.util.List;
+
 public class Department {
     private  Integer id;
     private  String departName;
+    private List<Employee> emps;
+
+    public List<Employee> getEmps() {
+        return emps;
+    }
+
+    public void setEmps(List<Employee> emps) {
+        this.emps = emps;
+    }
 
     @Override
     public String toString() {

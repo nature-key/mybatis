@@ -6,6 +6,9 @@
 
     <settings>
         <setting name="logImpl" value="STDOUT_LOGGING" />
+        <!--延迟加载-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="false"/>
     </settings>
     <typeAliases>
         <package name="com.sgugu.entity"></package>
@@ -33,7 +36,7 @@
 
     <mappers>
         <!--映射文件注册-->
-        <!--<mapper resource="EmployeeManger.xml"/>-->
+        <mapper resource="DepartmentManger.xml"/>
         <mapper resource="EmployeeMangerMap.xml"/>
     </mappers>
 </configuration>

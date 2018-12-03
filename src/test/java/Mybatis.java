@@ -1,7 +1,4 @@
-import com.sgugu.entity.Employee;
-import com.sgugu.entity.EmployeeAnnotion;
-import com.sgugu.entity.EmployeeMapper;
-import com.sgugu.entity.EmployeeMapperMap;
+import com.sgugu.entity.*;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -161,9 +158,40 @@ public class Mybatis {
         SqlSession sqlSession = this.getSqlSession();
         EmployeeMapperMap employee = sqlSession.getMapper(EmployeeMapperMap.class);
 
-        Employee employee1= employee.getEmployeeByDept(1);
-        System.out.println(employee1);
+        Employee employee1= employee.getEmployeeByDeptandID(1);
+        System.out.println(employee1.getEmail());
         System.out.println(employee1.getDepartment());
+        sqlSession.commit();
+        sqlSession.close();
+    }
+    @Test
+    public void test04() throws Exception {
+        SqlSession sqlSession = this.getSqlSession();
+//        EmployeeMapperMap employee = sqlSession.getMapper(EmployeeMapperMap.class);
+        DepartmentMapper dep1 =  sqlSession.getMapper(DepartmentMapper.class);
+        Department dep = dep1.getDepartmentByIdPuls(1);
+        System.out.println(dep);
+        dep.getEmps();
+
+        dep.getDepartName();
+
+
+        sqlSession.commit();
+        sqlSession.close();
+    }
+    @Test
+    public void test05() throws Exception {
+        SqlSession sqlSession = this.getSqlSession();
+//        EmployeeMapperMap employee = sqlSession.getMapper(EmployeeMapperMap.class);
+        DepartmentMapper dep1 =  sqlSession.getMapper(DepartmentMapper.class);
+        Department department =  dep1.getDeptByIdPuls(1);
+//        Department dep = dep1.getDepartmentByIdPuls(1);
+//        System.out.println(dep);
+        System.out.println(department.getEmps());
+
+        System.out.println(department.getDepartName());
+
+
         sqlSession.commit();
         sqlSession.close();
     }

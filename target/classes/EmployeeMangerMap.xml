@@ -6,13 +6,13 @@
 
     <!--resultMap 更丰富的功能-->
     <!--<resultMap id="myEmp" type="com.sgugu.entity.Employee">-->
-        <!--<id column="id" property="id"></id>-->
-        <!--<result column="last_name" property="lastName"></result>-->
-        <!--<result column="gender" property="gender"></result>-->
-        <!--<result column="email" property="email"></result>-->
+    <!--<id column="id" property="id"></id>-->
+    <!--<result column="last_name" property="lastName"></result>-->
+    <!--<result column="gender" property="gender"></result>-->
+    <!--<result column="email" property="email"></result>-->
     <!--</resultMap>-->
     <!--<select id="getEmpById" resultMap="myEmp">-->
-        <!--SELECT * from  tbl_employee where id=#{id}-->
+    <!--SELECT * from  tbl_employee where id=#{id}-->
     <!--</select>-->
 
     <resultMap id="mydifEmp" type="com.sgugu.entity.Employee">
@@ -29,10 +29,10 @@
         <result column="last_name" property="lastName"></result>
         <result column="gender" property="gender"></result>
         <result column="email" property="email"></result>
-       <association property="department" javaType="com.sgugu.entity.Department">
-           <result column="deptname" property="departName"></result>
-           <result column="deptid" property="id"></result>
-       </association>
+        <association property="department" javaType="com.sgugu.entity.Department">
+            <result column="deptname" property="departName"></result>
+            <result column="deptid" property="id"></result>
+        </association>
 
     </resultMap>
 
@@ -40,4 +40,24 @@
 select emp.id id,emp.email email,emp.gender gender ,emp.last_name lastname ,dept.dept_name deptname ,dept.id deptid  from  tbl_dept dept ,tbl_employee emp where emp.d_id=dept.id and emp.id=#{id}
 
     </select>
+    <resultMap id="my" type="com.sgugu.entity.Employee">
+        <id column="id" property="id"></id>
+        <result column="last_name" property="lastName"></result>
+        <result column="gender" property="gender"></result>
+        <result column="email" property="email"></result>
+        <!--select: 查询的方法群全路径-->
+        <association property="department" select="com.sgugu.entity.DepartmentMapper.getDepartmentById" column="d_id">
+        </association>
+
+    </resultMap>
+
+    <select id="getEmployeeByDeptandID" resultMap="my">
+        SELECT  *  from  tbl_employee where id =#{id}
+    </select>
+
+
+    <select id="getEmployeeById" resultType="com.sgugu.entity.Employee">
+     SELECT  *  from  tbl_employee where id =#{id}
+</select>
+
 </mapper>

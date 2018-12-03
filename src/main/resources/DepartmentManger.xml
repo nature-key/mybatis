@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sgugu.entity.DepartmentMapper">
+
+    <select id="getDepartmentById" resultType="com.sgugu.entity.Department">
+        SELECT id ,dept_name departName  from  tbl_dept WHERE  id =#{id}
+    </select>
+
+    <resultMap id="dept" type="com.sgugu.entity.Department">
+        <id column="id" property="id"></id>
+        <result column="dept_name" property="departName"></result>
+        <collection property="emps" ofType="com.sgugu.entity.Employee">
+            <id column="eid" property="id"></id>
+            <result column="last_name" property="lastName"></result>
+            <result column="gender" property="gender"></result>
+            <result column="email" property="email"></result>
+        </collection>
+    </resultMap>
+
+
+    <select id="getDepartmentByIdPuls" resultMap="dept">
+        SELECT d.id id,d.dept_name dept_name,e.id eid,e.last_name last_name,e.gender gender,e.email email from  tbl_dept d
+        LEFT JOIN  tbl_employee e
+        on d.id = e.d_id
+        where d.id=1
+    </select>
+
+    <resultMap id="puls1" type="com.sgugu.entity.Department">
+        <id column="id" property="id"></id>
+        <result column="dept_name" property="departName"></result>
+        <collection property="emps" select="com.sgugu.entity.EmployeeMapperMap.getEmployeeById"
+                    column="id">
+
+        </collection>
+
+    </resultMap>
+
+    <select id="getDeptByIdPuls" resultMap="puls1">
+         SELECT id,dept_name from  tbl_dept WHERE  id =#{id}
+    </select>
+
+
+</mapper>
