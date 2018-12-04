@@ -38,5 +38,6 @@
         <!--映射文件注册-->
         <mapper resource="DepartmentManger.xml"/>
         <mapper resource="EmployeeMangerMap.xml"/>
+        <mapper resource="EmployeeMapperDynamicSql.xml"/>
     </mappers>
 </configuration>

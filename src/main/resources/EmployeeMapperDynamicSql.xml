@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sgugu.entity.EmployeeMapperDynamicSql">
+    <select id="getEmployeeById" resultType="emp">
+        SELECT * from tbl_employee WHERE
+        <if test="id!=null">
+            id=#{id}
+        </if>
+        <if test="lastName!=null and lastName!=&quot;&quot;">
+            and last_name=#{lastName}
+        </if>
+        <if test="email.trim()!=&quot;&quot; and email!=null">
+            and email =#{email}
+        </if>
+        <if test="gender !=null ">
+            and gender =#{gender}
+        </if>
+
+    </select>
+</mapper>

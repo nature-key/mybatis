@@ -123,7 +123,7 @@ public class Mybatis {
 
             EmployeeMapperMap mapper = sqlSession.getMapper(EmployeeMapperMap.class);
 
-           Employee employee = mapper.getEmployeeByDept(1);
+            Employee employee = mapper.getEmployeeByDept(1);
             System.out.println(employee);
             System.out.println(employee.getDepartment());
 
@@ -144,7 +144,7 @@ public class Mybatis {
 
         } catch (Exception e) {
 
-        }finally {
+        } finally {
             sqlSession.commit();
             sqlSession.close();
         }
@@ -158,17 +158,18 @@ public class Mybatis {
         SqlSession sqlSession = this.getSqlSession();
         EmployeeMapperMap employee = sqlSession.getMapper(EmployeeMapperMap.class);
 
-        Employee employee1= employee.getEmployeeByDeptandID(1);
+        Employee employee1 = employee.getEmployeeByDeptandID(1);
         System.out.println(employee1.getEmail());
         System.out.println(employee1.getDepartment());
         sqlSession.commit();
         sqlSession.close();
     }
+
     @Test
     public void test04() throws Exception {
         SqlSession sqlSession = this.getSqlSession();
 //        EmployeeMapperMap employee = sqlSession.getMapper(EmployeeMapperMap.class);
-        DepartmentMapper dep1 =  sqlSession.getMapper(DepartmentMapper.class);
+        DepartmentMapper dep1 = sqlSession.getMapper(DepartmentMapper.class);
         Department dep = dep1.getDepartmentByIdPuls(1);
         System.out.println(dep);
         dep.getEmps();
@@ -179,12 +180,13 @@ public class Mybatis {
         sqlSession.commit();
         sqlSession.close();
     }
+
     @Test
     public void test05() throws Exception {
         SqlSession sqlSession = this.getSqlSession();
 //        EmployeeMapperMap employee = sqlSession.getMapper(EmployeeMapperMap.class);
-        DepartmentMapper dep1 =  sqlSession.getMapper(DepartmentMapper.class);
-        Department department =  dep1.getDeptByIdPuls(1);
+        DepartmentMapper dep1 = sqlSession.getMapper(DepartmentMapper.class);
+        Department department = dep1.getDeptByIdPuls(1);
 //        Department dep = dep1.getDepartmentByIdPuls(1);
 //        System.out.println(dep);
         System.out.println(department.getEmps());
@@ -194,5 +196,26 @@ public class Mybatis {
 
         sqlSession.commit();
         sqlSession.close();
+    }
+
+   @Test
+    public void test06() throws  Exception {
+        SqlSession sqlSession = this.getSqlSession();
+        try {
+//Integer id, String lastName, String gender, String email
+            EmployeeMapperDynamicSql employeeMapperDynamicSql = sqlSession.getMapper(EmployeeMapperDynamicSql.class);
+            Employee employee = new Employee(1, "", "0", "tom@com");
+
+            List<Employee> employees = employeeMapperDynamicSql.getEmployeeById(employee);
+            System.out.println(employees);
+            for (Employee employee1 :
+                    employees) {
+                System.out.println(employee1);
+            }
+        } catch (Exception e) {
+//            sqlSession.commit();
+//            sqlSession.close();
+        }
+
     }
 }

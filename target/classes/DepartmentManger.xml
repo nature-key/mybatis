@@ -31,9 +31,14 @@
         <id column="id" property="id"></id>
         <result column="dept_name" property="departName"></result>
         <collection property="emps" select="com.sgugu.entity.EmployeeMapperMap.getEmployeeById"
-                    column="id">
+                    column="{id=id}" fetchType="eager">
 
         </collection>
+        <!--
+        collection 封装一个map 多个值传  {key=value,key2=value}
+        fetchType  lazy 延迟加载
+                eager: 立刻执行
+        -->
 
     </resultMap>
 
