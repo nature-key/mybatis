@@ -198,24 +198,41 @@ public class Mybatis {
         sqlSession.close();
     }
 
-   @Test
-    public void test06() throws  Exception {
+    @Test
+    public void test06() throws Exception {
         SqlSession sqlSession = this.getSqlSession();
         try {
 //Integer id, String lastName, String gender, String email
             EmployeeMapperDynamicSql employeeMapperDynamicSql = sqlSession.getMapper(EmployeeMapperDynamicSql.class);
-            Employee employee = new Employee(1, "", "0", "tom@com");
+            Employee employee = new Employee(1, "4444", "3", "22222@com");
 
-            List<Employee> employees = employeeMapperDynamicSql.getEmployeeById(employee);
-            System.out.println(employees);
-            for (Employee employee1 :
-                    employees) {
-                System.out.println(employee1);
-            }
+
+//            List<Employee> employees = employeeMapperDynamicSql.getEmployeeByIdChosee(employee);
+//            List<Employee> employees = employeeMapperDynamicSql.getEmployeeByIdTrim(employee);
+            employeeMapperDynamicSql.updateEmployee(employee);
+//            System.out.println(employees);
+//            for (Employee employee1 :
+//                    employees) {
+//                System.out.println(employee1);
+//            }
+            sqlSession.commit();
         } catch (Exception e) {
-//            sqlSession.commit();
-//            sqlSession.close();
+
+            sqlSession.close();
         }
 
     }
+
+    @Test
+    public  void test07() throws Exception{
+        SqlSession sqlSession = this.getSqlSession();
+        EmployeeMapperDynamicSql employeeMapperDynamicSql = sqlSession.getMapper(EmployeeMapperDynamicSql.class);
+        Employee employee = new Employee(3, null, null, "22222@com");
+        employeeMapperDynamicSql.updateEmployee(employee);
+        sqlSession.commit();
+        sqlSession.close();
+
+    }
+
+
 }

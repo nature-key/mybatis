@@ -3,20 +3,113 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sgugu.entity.EmployeeMapperDynamicSql">
+    <!--
+    1.使用where标签
+    2. where 1=1
+
+    -->
     <select id="getEmployeeById" resultType="emp">
-        SELECT * from tbl_employee WHERE
-        <if test="id!=null">
-            id=#{id}
-        </if>
-        <if test="lastName!=null and lastName!=&quot;&quot;">
-            and last_name=#{lastName}
-        </if>
-        <if test="email.trim()!=&quot;&quot; and email!=null">
-            and email =#{email}
-        </if>
-        <if test="gender !=null ">
-            and gender =#{gender}
-        </if>
+        SELECT * from tbl_employee
+        <where>
+            <if test="id!=null">
+                id=#{id}
+            </if>
+            <if test="lastName!=null and lastName!=&quot;&quot;">
+                and last_name=#{lastName}
+            </if>
+            <if test="email.trim()!=&quot;&quot; and email!=null">
+                and email =#{email}
+            </if>
+            <if test="gender !=null ">
+                and gender =#{gender}
+            </if>
+
+        </where>
 
     </select>
+
+
+    <select id="getEmployeeByIdTrim" resultType="emp">
+        SELECT * from tbl_employee
+        <trim prefix="where">
+            <if test="id!=null">
+                id=#{id} and
+            </if>
+            <if test="lastName!=null and lastName!=&quot;&quot;">
+                last_name=#{lastName} and
+            </if>
+            <if test="email.trim()!=&quot;&quot; and email!=null">
+                email =#{email} and
+            </if>
+            <if test="gender==0 ">
+                gender =#{gender}
+            </if>
+
+
+        </trim>
+
+    </select>
+
+
+    <select id="getEmployeeByIdChosee" resultType="com.sgugu.entity.Employee">
+        SELECT * from tbl_employee
+        <where>
+            <choose>
+                <when test="id!=null">
+                    id=#{id}
+                </when>
+                <when test="email!=null">
+                    email=#{email}
+                </when>
+                <otherwise>
+                    gender=0
+                </otherwise>
+            </choose>
+
+        </where>
+
+
+    </select>
+
+
+
+
+    <update id="updateEmployee1">
+        update tbl_employee
+    <trim  prefix="set" suffixOverrides=",">
+
+        <if test="lastName!=null">
+            last_name=#{lastName},
+        </if>
+        <if test="email!=null">
+            email=#{email},
+        </if>
+
+    </trim>
+
+        where id=#{id}
+
+    </update>
+
+    <update id="updateEmployee">
+        update tbl_employee
+
+        <set>
+
+            <if test="lastName!=null">
+                last_name=#{lastName},
+            </if>
+            <if test="email!=null">
+                email=#{email},
+            </if>
+        </set>
+
+
+        where id=#{id}
+
+    </update>
+
+
+
+
 </mapper>
