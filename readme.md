@@ -92,4 +92,29 @@ mybatis多指参数时候就会把参数封装成一个map
        </select>       
 
 
-默认构造函数 写上        
+默认构造函数 写上 
+
+
+
+
+缓存
+ 一级缓存
+  本地缓存  sqlsession级别的缓存 一级缓存是一直开启
+  与数据库同一次回话，查询到数据回访本地缓存中
+  相同的数据，直接从相同数据的缓存中拿，没有必要去数据库查
+  
+  一级缓存失效情况
+  
+   1。sqlsession不同
+   2.sqlsession 相同，查询条件不同
+   3.sqlsession相同 连词查询之间执行增删改查
+   4.sqlsession相同 手动清除一级缓存
+ 二级缓存 全局缓存
+ 
+  1.一个会话，查询一条数据，放到一级缓存
+  2.会话关闭，会把数据放到二级缓存，新的查询，会查询二级缓存
+  3.sqlsession ==employeemapper ===> employee
+                 DepartmentMapper ===>  departtment
+                 
+                 不同的namespace查出的数据放到自己的缓存中， 就是一个map
+       

@@ -7,6 +7,13 @@ public class Department {
     private  String departName;
     private List<Employee> emps;
 
+    public Department(Integer id) {
+        this.id = id;
+    }
+
+    public Department() {
+    }
+
     public List<Employee> getEmps() {
         return emps;
     }

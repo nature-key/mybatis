@@ -6,9 +6,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Mybatis {
 
@@ -20,6 +18,19 @@ public class Mybatis {
         SqlSession session = sqlSessionFactory.openSession();
         return session;
     }
+
+    @Test
+    public void test08() throws  Exception{
+        SqlSession session = this.getSqlSession();
+        EmployeeMapperDynamicSql employeeMapperDynamicSql = session.getMapper(EmployeeMapperDynamicSql.class);
+        List<Employee> list= new ArrayList<Employee>();
+        list.add(new Employee(null,"wanger","0","@wagxuan:finoggeeks.com",new Department(1)));
+        list.add(new Employee(null,"wanger1","0","@wagxuan1:finoggeeks.com",new Department(1)));
+        employeeMapperDynamicSql.addEmployee(list);
+        session.commit();
+        session.close();
+    }
+
 
     @Test
     public void test() throws Exception {
@@ -209,26 +220,39 @@ public class Mybatis {
 
 //            List<Employee> employees = employeeMapperDynamicSql.getEmployeeByIdChosee(employee);
 //            List<Employee> employees = employeeMapperDynamicSql.getEmployeeByIdTrim(employee);
-            employeeMapperDynamicSql.updateEmployee(employee);
+//            employeeMapperDynamicSql.updateEmployee(employee);
 //            System.out.println(employees);
 //            for (Employee employee1 :
 //                    employees) {
 //                System.out.println(employee1);
 //            }
+            List<Employee> list = employeeMapperDynamicSql.getListForEach(Arrays.asList(1, 2, 3));
+            for (Employee e : list) {
+                System.out.println(e.toString());
+            }
+
+
             sqlSession.commit();
         } catch (Exception e) {
-
+            System.out.println(e.getMessage());
             sqlSession.close();
         }
 
     }
 
     @Test
-    public  void test07() throws Exception{
+    public void test07() throws Exception {
         SqlSession sqlSession = this.getSqlSession();
         EmployeeMapperDynamicSql employeeMapperDynamicSql = sqlSession.getMapper(EmployeeMapperDynamicSql.class);
-        Employee employee = new Employee(3, null, null, "22222@com");
-        employeeMapperDynamicSql.updateEmployee(employee);
+//        Employee employee = new Employee(3, null, null, "22222@com");
+//        employeeMapperDynamicSql.updateEmployee(employee);
+        Employee employee = new Employee();
+        employee.setLastName("w");
+      List<Employee> list =   employeeMapperDynamicSql.getEmployeeInnerByInnerParam(employee);
+        for (Employee e:list
+             ) {
+            System.out.println(e.toString());
+        }
         sqlSession.commit();
         sqlSession.close();
 

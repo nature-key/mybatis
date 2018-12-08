@@ -6,6 +6,7 @@
 
     <settings>
         <setting name="logImpl" value="STDOUT_LOGGING" />
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
         <!--延迟加载-->
         <setting name="lazyLoadingEnabled" value="true"/>
         <setting name="aggressiveLazyLoading" value="false"/>
@@ -20,7 +21,7 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property  name="url" value="jdbc:mysql://127.0.0.1:3306/mybatis"/>
+                <property  name="url" value="jdbc:mysql://127.0.0.1:3306/mybatis?allowMultiQueries=true"/>
                 <property name="username" value="root"/>
                 <property name="password" value="123456"/>
             </dataSource>
@@ -38,6 +39,7 @@
         <!--映射文件注册-->
         <mapper resource="DepartmentManger.xml"/>
         <mapper resource="EmployeeMangerMap.xml"/>
+        <mapper resource="EmployeeManger.xml"/>
         <mapper resource="EmployeeMapperDynamicSql.xml"/>
     </mappers>
 </configuration>

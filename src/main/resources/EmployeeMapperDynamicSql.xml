@@ -93,9 +93,7 @@
 
     <update id="updateEmployee">
         update tbl_employee
-
         <set>
-
             <if test="lastName!=null">
                 last_name=#{lastName},
             </if>
@@ -103,13 +101,65 @@
                 email=#{email},
             </if>
         </set>
-
-
         where id=#{id}
 
     </update>
+<!--
+注意 你可以传递一个 List 实例或者数组作为参数对象传给 MyBatis。当你这么做的时 候,MyBatis 会自动将它包装在一个 Map 中,用名称在作为键。List 实例将会以“list” 作为键,而数组实例将会以“array”作为键。
+
+-->
+   <select id="getListForEach" resultType="com.sgugu.entity.Employee">
+     select * from tbl_employee
+       <foreach collection="list" item="item_id" separator="," open="where id in (" close=")">#{item_id}</foreach>
+   </select>
+
+    <!--<insert id="addEmployee">-->
+       <!--insert into tbl_employee(last_name,email,gender,d_id)VALUES-->
+         <!--<foreach collection="emps" separator="," item="emp">-->
+             <!--(#{emp.lastName},#{emp.email},#{emp.gender},#{emp.department.id})-->
+         <!--</foreach>-->
+    <!--</insert>-->
+
+    <!--
+    allowMultiQueries=true  批量插入 配置
+    -->
+    <insert id="addEmployee">
+
+         <foreach collection="emps" separator=";" item="emp">
+             insert into tbl_employee(
+             <include refid="insertColumn"></include>
+             )
+#              (last_name,email,gender,d_id)
 
 
+             VALUES  (#{emp.lastName},#{emp.email},#{emp.gender},#{emp.department.id})
+         </foreach>
+    </insert>
 
+   <!--
+   内置参数
+     _databaseId：那个数据库
+     _parameter
+       单个参数 就是代表这个参数
+       多个参数 封装一个map
+
+   -->
+    <select id="getEmployeeInnerByInnerParam" resultType="emp">
+        <bind name="_lastName" value="'%'+lastName+'%'"></bind>
+        <if test="_databaseId=='mysql'">
+            SELECT  *  from  tbl_employee
+            <if test="_parameter!=null">
+                where last_name LIKE #{_lastName}
+            </if>
+        </if>
+    </select>
+
+
+  <!--   重复sql  -->
+    <sql id="insertColumn">
+        <if test="_databaseId=='mysql'">
+            last_name,email,gender,d_id
+        </if>
+    </sql>
 
 </mapper>
