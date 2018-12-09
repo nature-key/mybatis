@@ -10,6 +10,9 @@
         <!--延迟加载-->
         <setting name="lazyLoadingEnabled" value="true"/>
         <setting name="aggressiveLazyLoading" value="false"/>
+        <!--开启缓存-->
+        <setting name="cacheEnabled" value="true"></setting>
+        <setting name="localCacheScope" value="SESSION"></setting>
     </settings>
     <typeAliases>
         <package name="com.sgugu.entity"></package>

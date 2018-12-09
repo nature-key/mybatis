@@ -1,8 +1,9 @@
 package com.sgugu.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Department {
+public class Department implements Serializable{
     private  Integer id;
     private  String departName;
     private List<Employee> emps;

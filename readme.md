@@ -117,4 +117,37 @@ mybatis多指参数时候就会把参数封装成一个map
                  DepartmentMapper ===>  departtment
                  
                  不同的namespace查出的数据放到自己的缓存中， 就是一个map
+                 
+  二级缓存使用
+  1.<setting name="cacheEnabled" value="true"></setting>
+  2.基于namespace的 
+   <cache eviction="" flushInterval=" " readOnly="" size="" type=""> </cache>
+                      
+    eviction 回收策略
+     LRU – 最近最少使用的:移除最长时间不被使用的对象。
+     FIFO – 先进先出:按对象进入缓存的顺序来移除它们。
+     SOFT – 软引用:移除基于垃圾回收器状态和软引用规则的对象。
+     WEAK – 弱引用:更积极地移除基于垃圾收集器状态和弱引用规则的对象。
+     
+     flushInterval  缓存多长时间清空一次 默认不清楚
+     刷新间隔)可以被设置为任意的正整数,而且它们代表一个合理的毫秒 形式的时间段。默认情况是不设置,也就是没有刷新间隔,缓存仅仅调用语句时刷新            
+                 
+      readOnly 
+        只读 true mybatis认为所有从缓存中获取数据的操作都是读操作，不会修改数据
+         加快获取数据的性能，直接把引用返回，不安全
+        非只读  false mybatis认为数据是可以修改的，
+            mybatis会克隆一份，使用序列化反序列化克隆一份新的数据返回，数据安全，单不安全
+     size 缓存的大小
+     
+     实体要进行序列化       
+            
+       <setting name="cacheEnabled" value="true"></setting>
+      cacheEnabled false  关闭二级缓存
+      
+       select 标签中  useCache="false"  二级缓存不能使用，一级缓存可用 
        
+       flushCache="true"   增删改查 一二级缓存都会清空
+       
+       session1.clearCache(); 清除当前一级缓存
+       <setting name="localCacheScope" value="SESSION"></setting>  默认一级缓存session
+       MyBatis 利用本地缓存机制（Local Cache）防止循环引用（circular references）和加速重复嵌套查询。 默认值为 SESSION，这种情况下会缓存一个会话中执行的所有查询。 若设置值为 STATEMENT，本地会话仅用在语句执行上，对相同 SqlSession 的不同调用将不会共享数据。	SESSION | STATEMENT	
